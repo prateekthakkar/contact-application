@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{%load static %}
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Contact</title>
+</head>
+<body>
+{% block content %}
+ <nav class="navbar navbar-default navbar-static-top">
+ <div class="container">
+ <ul class="nav navbar-nav">
+{% if user.is_authenticated %} 	
+
+<li><a class="navbar-link">{{ user.username}}</a></li>
+<li><a class="navbar-link" href="{% url 'Home' %}">Home</a></li>     
+<li style="margin-left: 900px;"><a class="navbar-link" href="{% url 'Logout' %}">Logout</a></li>
+{% endif %}
+		</ul>
+      </div>
+    </nav>
+{% endblock content %}
+<div>
+<h4 style="margin-left: 130px;font-family: verdna;">{{user.username}}'s Contact List</h4>
+<button class="btn" style="margin-left: 1300px;"><a href="{% url 'Contact_Insert' %}">Insert</a></button>
+</div>
+	<div>
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Name</th>
+				<th>Number</th>
+				<th>Country</th>
+				<th>State</th>
+				<th>City</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>		
+		{% for contacts in contact %}
+		<tr>
+			<td><img src="{{contacts.image.url}}" height="100"></td>
+			<td>{{contacts.name}}</td>
+			<td>{{contacts.number}}</td>
+			<td>{{contacts.country}}</td>
+			<td>{{contacts.state}}</td>
+			<td>{{contacts.city}}</td>
+			<td><a href="Edit/{{contacts.c_id}}">Edit</a>
+				<a href="/Delete/{{contacts.c_id}}">Delete</a>
+			</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	</div>
+		
+
+</body>
+</html>
+

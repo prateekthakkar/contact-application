@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Home</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 5px;
+}
+
+.row {margin: 0 -5px;}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #444;
+  color: white;
+}
+
+.fa {font-size:50px;}
+</style>
+</head>
+<body>
+ <nav class="navbar navbar-default navbar-static-top">
+ <div class="container">
+ <ul class="nav navbar-nav">
+{% if user.is_authenticated %} 	
+<li><a class="navbar-link">{{ user.username}}</a></li>
+
+<li><a class="navbar-link" href="{% url 'Contact'%}">Contact</a></li>     
+<li style="margin-left: 900px;"><a class="navbar-link" href="{% url 'Logout' %}">Logout</a></li>
+{% else %}
+<li><a class="navbar-link" href="{% url 'Register' %}">Register</a></li>     
+<li><a class="navbar-link" href="{% url 'Login' %}">Login</a></li>
+{% endif %}
+		</ul>
+      </div>
+    </nav>
+{% if user.is_authenticated %} 
+<p><h1>Welcome {{ user.username}}</h1></p>
+<div class="row">
+<div class="col-xs-6">
+	<h4><p style="font-family: Palatino Linotype";>Contact's Counter</p></h4>
+    <div class="card">
+    	<h3><p>Contact</p></h3>
+      <p><i class="fa fa-user"></i></p>
+      <h3>{{count}}</h3>
+    </div>
+  </div>
+</div>
+<div class="col-xs-6">
+	<h4><p style="font-family: Palatino Linotype";>Contact's Graph</p></h4>
+</div>
+</div>  
+{% endif %}
+</body>
+</html>
+
